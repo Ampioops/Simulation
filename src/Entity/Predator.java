@@ -12,7 +12,7 @@ public class Predator extends Creature {
     }
 
     @Override
-    void makeMove(Map<Coordinates, Entity> entities) {
+    void makeMove() {
 
     }
 }

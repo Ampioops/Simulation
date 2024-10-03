@@ -3,9 +3,6 @@ package Simulation;
 import Entity.Coordinates;
 import Entity.Entity;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +13,13 @@ public class Simulation implements Action {
     Renderer renderer;
     static private Map<Coordinates, Entity> entities = new HashMap<>();
 
-    public void setEntity(Entity entity, Coordinates coordinates){
+    public static void setEntity(Entity entity, Coordinates coordinates){
         entity.setCoordinates(coordinates);
         entities.put(coordinates, entity);
+    }
+
+    public static void deleteEntity(Entity entity){
+        entities.remove(entity.getCoordinates());
     }
 
     public void setSizeOfSimulation(Integer height, Integer width){
@@ -41,12 +42,12 @@ public class Simulation implements Action {
     }
 
     @Override
-    public void initAction() {
+    public void initAction() { //действия, совершаемые перед стартом симуляции. Пример - расставить объекты и существ на карте
 
     }
 
     @Override
-    public void turnAction() {
+    public void turnAction() { //действия, совершаемые каждый ход. Примеры - передвижение существ, добавить травы или травоядных, если их осталось слишком мало
 
     }
 

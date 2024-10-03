@@ -11,14 +11,14 @@ public class Main {
     public static void main(String[] args) {
         Simulation s = new Simulation();
         s.setSizeOfSimulation(10,10);
-        Herbivore e2 = new Herbivore(new Coordinates(5,5),4, 25);
+        Herbivore e2 = new Herbivore(new Coordinates(5,5),2, 25);
         Predator e3 = new Predator(new Coordinates(3,3), 2, 10, 25);
         Tree e4 = new Tree(new Coordinates(1, 3));
         Tree e5 = new Tree(new Coordinates(2, 3));
         Rock e6 = new Rock(new Coordinates(1, 7));
-        Grass e7 = new Grass(new Coordinates(8, 9));
-        Grass e8 = new Grass(new Coordinates(7, 5));
-        Grass e9 = new Grass(new Coordinates(6, 7));
+        Grass e7 = new Grass(new Coordinates(1, 2));
+        Grass e8 = new Grass(new Coordinates(1, 3));
+        Grass e9 = new Grass(new Coordinates(1, 4));
 
 
 
@@ -33,6 +33,21 @@ public class Main {
 
         s.startSimulation();
 
-        e2.makeMove(s.getEntities());
+        e2.makeMove();
+        System.out.println();
+        s.startSimulation();
+
+        e2.makeMove();
+        System.out.println();
+        s.startSimulation();
+
+        e2.makeMove();
+        System.out.println();
+        s.startSimulation();
+
+        e2.makeMove();
+        System.out.println();
+        s.startSimulation();
+
     }
 }
