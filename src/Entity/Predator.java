@@ -1,5 +1,7 @@
 package Entity;
 
+import Simulation.Simulation;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,18 @@ public class Predator extends Creature {
 
         List<Coordinates> path = PathFinder.calculatePath(getCoordinates(),getClass());
 
-        System.out.println(path);
+        if (!path.isEmpty()) {
+            path.removeFirst();
+            Simulation.deleteEntity(this);
+
+            if (path.size() <= speed) {
+                setCoordinates(path.getLast());
+                Simulation.setEntity(this, path.getLast());
+            } else {
+                setCoordinates(path.get(speed - 1));
+                Simulation.setEntity(this, path.get(speed - 1));
+            }
+        }
 
     }
 }
