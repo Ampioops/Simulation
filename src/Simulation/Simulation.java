@@ -1,6 +1,7 @@
 package Simulation;
 
 import Entity.Coordinates;
+import Entity.Creature;
 import Entity.Entity;
 
 import java.util.HashMap;
@@ -13,31 +14,37 @@ public class Simulation implements Action {
     Renderer renderer;
     static private Map<Coordinates, Entity> entities = new HashMap<>();
 
-    public static void setEntity(Entity entity, Coordinates coordinates){
+    public static void setEntity(Entity entity, Coordinates coordinates) {
         entity.setCoordinates(coordinates);
         entities.put(coordinates, entity);
     }
 
-    public static void deleteEntity(Entity entity){
+    public static void deleteEntity(Entity entity) {
         entities.remove(entity.getCoordinates());
     }
 
-    public void setSizeOfSimulation(Integer height, Integer width){
+    public void setSizeOfSimulation(Integer height, Integer width) {
         Simulation.height = height;
         Simulation.width = width;
     }
 
-    public void startSimulation(){
+    public void startSimulation() {
         renderer = new Renderer();
+        nextTurn();
         renderer.render(height, width, entities);
 
     }
 
-    public void nextTurn(){
+    public void nextTurn() { // гуглить как обойти хэшмапу с изменяющимся сайзом iterator mb
 
+        for (Entity entity : entities.values()) {
+            if (entity instanceof Creature) {
+                ((Creature) entity).makeMove();
+            }
+        }
     }
 
-    public void pauseSimulation(){
+    public void pauseSimulation() {
 
     }
 
@@ -54,6 +61,7 @@ public class Simulation implements Action {
     public static Integer getWidth() {
         return width;
     }
+
     public static Integer getHeight() {
         return height;
     }

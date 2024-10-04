@@ -8,12 +8,10 @@ import java.util.stream.Stream;
 public class PathFinder {
 
     private static final Map<Coordinates, Entity> entities = Simulation.getEntities();
-    private final List<Coordinates> foundPath = new ArrayList<>();
     private static final Integer height = Simulation.getHeight();
     private static final Integer width = Simulation.getWidth();
     private static final Herbivore herbivoreObj = new Herbivore(new Coordinates(0, 0), 0, 0);
     private static final Predator predatorObj = new Predator(new Coordinates(0, 0), 0, 0, 0);
-    private static final Grass grassObj = new Grass(new Coordinates(0, 0));
 
     public static List<Coordinates> calculatePath(Coordinates startPoint, Class<?> searcherClass) {
 
@@ -68,7 +66,6 @@ public class PathFinder {
                     .filter(coord -> !(entities.get(coord) instanceof Grass))
                     .toList();
         }
-
 
         if (neighbours.isEmpty()) {
             return new ArrayList<>();

@@ -12,6 +12,6 @@ public abstract class Creature extends Entity {
         this.HP = HP;
     }
 
-    abstract void makeMove();
+    public abstract void makeMove();
 
 }

@@ -22,7 +22,6 @@ public class Predator extends Creature {
         if (!path.isEmpty()) {
             path.removeFirst();
             Simulation.deleteEntity(this);
-
             if (path.size() <= speed) {
                 setCoordinates(path.getLast());
                 Simulation.setEntity(this, path.getLast());

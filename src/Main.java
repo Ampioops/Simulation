@@ -22,24 +22,18 @@ public class Main {
 
 
 
-        s.setEntity(e2, e2.getCoordinates());
-        s.setEntity(e3, e3.getCoordinates());
-        s.setEntity(e4, e4.getCoordinates());
-        s.setEntity(e5, e5.getCoordinates());
-        s.setEntity(e6, e6.getCoordinates());
-        s.setEntity(e7, e7.getCoordinates());
-        s.setEntity(e8, e8.getCoordinates());
-        s.setEntity(e9, e9.getCoordinates());
+        Simulation.setEntity(e2, e2.getCoordinates());
+        Simulation.setEntity(e3, e3.getCoordinates());
+        Simulation.setEntity(e4, e4.getCoordinates());
+        Simulation.setEntity(e5, e5.getCoordinates());
+        Simulation.setEntity(e6, e6.getCoordinates());
+        Simulation.setEntity(e7, e7.getCoordinates());
+        Simulation.setEntity(e8, e8.getCoordinates());
+        Simulation.setEntity(e9, e9.getCoordinates());
+
 
         s.startSimulation();
 
-        e2.makeMove();
-        System.out.println();
-        s.startSimulation();
-
-        e3.makeMove();
-        System.out.println();
-        s.startSimulation();
 
 
     }
