@@ -12,7 +12,7 @@ public class Main {
         Simulation s = new Simulation();
         s.setSizeOfSimulation(10,10);
         Herbivore e2 = new Herbivore(new Coordinates(5,5),2, 25);
-        Predator e3 = new Predator(new Coordinates(3,3), 2, 10, 25);
+        Predator e3 = new Predator(new Coordinates(3,3), 4, 10, 25);
         Tree e4 = new Tree(new Coordinates(1, 3));
         Tree e5 = new Tree(new Coordinates(2, 3));
         Rock e6 = new Rock(new Coordinates(1, 7));
@@ -37,17 +37,10 @@ public class Main {
         System.out.println();
         s.startSimulation();
 
-        e2.makeMove();
+        e3.makeMove();
         System.out.println();
         s.startSimulation();
 
-        e2.makeMove();
-        System.out.println();
-        s.startSimulation();
-
-        e2.makeMove();
-        System.out.println();
-        s.startSimulation();
 
     }
 }

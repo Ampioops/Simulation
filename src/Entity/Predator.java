@@ -1,6 +1,7 @@
 package Entity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Predator extends Creature {
@@ -12,7 +13,11 @@ public class Predator extends Creature {
     }
 
     @Override
-    void makeMove() {
+    public void makeMove() {
+
+        List<Coordinates> path = PathFinder.calculatePath(getCoordinates(),getClass());
+
+        System.out.println(path);
 
     }
 }

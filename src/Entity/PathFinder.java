@@ -11,11 +11,11 @@ public class PathFinder {
     private final List<Coordinates> foundPath = new ArrayList<>();
     private static final Integer height = Simulation.getHeight();
     private static final Integer width = Simulation.getWidth();
-    private static final Herbivore herbivoreObj = new Herbivore(new Coordinates(0,0), 0,0);
-    private static final Predator predatorObj = new Predator(new Coordinates(0,0), 0, 0, 0);
-    private static final Grass grassObj = new Grass(new Coordinates(0,0));
+    private static final Herbivore herbivoreObj = new Herbivore(new Coordinates(0, 0), 0, 0);
+    private static final Predator predatorObj = new Predator(new Coordinates(0, 0), 0, 0, 0);
+    private static final Grass grassObj = new Grass(new Coordinates(0, 0));
 
-     public static List<Coordinates> calculatePath(Coordinates startPoint, Class<?> targetClass) {
+    public static List<Coordinates> calculatePath(Coordinates startPoint, Class<?> searcherClass) {
 
         Set<Coordinates> visited = new HashSet<>();
         Queue<Coordinates> queue = new ArrayDeque<>();
@@ -25,20 +25,20 @@ public class PathFinder {
         queue.add(startPoint);
         visited.add(startPoint);
 
-         while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             Coordinates node = queue.poll();
 
-            if (targetClass.isInstance(herbivoreObj) && (entities.get(node) instanceof Grass)) {
+            if (searcherClass.isInstance(herbivoreObj) && (entities.get(node) instanceof Grass)) {
 
                 return constructPath(startPoint, node, parent);
 
-            } else if (targetClass.isInstance(predatorObj) && (entities.get(node) instanceof Predator)) {
+            } else if (searcherClass.isInstance(predatorObj) && (entities.get(node) instanceof Herbivore)) {
 
                 return constructPath(startPoint, node, parent);
 
             }
 
-             for (Coordinates neighbour : getNeighbours(node)) { //ПЕРЕБИРАЕМ СОСЕДЕЙ УЗЛА
+            for (Coordinates neighbour : getNeighbours(node, searcherClass)) { //ПЕРЕБИРАЕМ СОСЕДЕЙ УЗЛА
                 if (!visited.contains(neighbour)) { // ЕСЛИ НЕТ В УЖЕ ПОСЕЩЕННЫХ - ДОБАВЛЯЕМ ВСЕ И ЗАПОМИНАЕМ ОТЦА
                     visited.add(neighbour);
                     queue.add(neighbour);
@@ -46,21 +46,33 @@ public class PathFinder {
                 }
             }
         }
-         return new ArrayList<>();
-     }
+        return new ArrayList<>();
+    }
 
-    public static List<Coordinates> getNeighbours(Coordinates node) {
-        List<Coordinates> neibhours = Stream.of(-1, 1,0)// ТУТ ПРОСТО БЕРЕМ СОСЕДЕЙ УЗЛА, ПРИЧЕМ КАМНИ И ВСЯ ТАКАЯ ПОЕБЕНЬ НЕ ВХОДИТ
-                .flatMap(i -> Stream.of(-1, 1,0)
+    public static List<Coordinates> getNeighbours(Coordinates node, Class<?> searcherClass) {
+
+        List<Coordinates> neighbours = Stream.of(-1, 1, 0)// ТУТ ПРОСТО БЕРЕМ СОСЕДЕЙ УЗЛА, ПРИЧЕМ КАМНИ И ВСЯ ТАКАЯ ПОЕБЕНЬ НЕ ВХОДИТ
+                .flatMap(i -> Stream.of(-1, 1, 0)
                         .map(j -> new Coordinates(node.row + i, node.column + j)))
                 .filter(coord -> coord.row >= 0 && coord.column >= 0)
                 .filter(coord -> coord.row <= height && coord.column <= width)
-                .filter(coord -> !(entities.get(coord) instanceof Rock || entities.get(coord) instanceof Tree||entities.get(coord) instanceof Predator))
+                .filter(coord -> !(entities.get(coord) instanceof Rock || entities.get(coord) instanceof Tree || entities.get(coord) instanceof Predator))
                 .toList();
 
-        if (neibhours.isEmpty()) {
+        if (searcherClass.isInstance(herbivoreObj)) {
+            neighbours = neighbours.stream()
+                    .filter(coord -> !(entities.get(coord) instanceof Herbivore))
+                    .toList();
+        }else if (searcherClass.isInstance(predatorObj)) {
+            neighbours = neighbours.stream()
+                    .filter(coord -> !(entities.get(coord) instanceof Grass))
+                    .toList();
+        }
+
+
+        if (neighbours.isEmpty()) {
             return new ArrayList<>();
-        } else return neibhours;
+        } else return neighbours;
     }
 
 
