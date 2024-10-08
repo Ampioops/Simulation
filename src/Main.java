@@ -10,27 +10,23 @@ import Entity.*;
 public class Main {
     public static void main(String[] args) {
         Simulation s = new Simulation();
-        s.setSizeOfSimulation(10,10);
-        Herbivore e2 = new Herbivore(new Coordinates(5,5),2, 25);
-        Predator e3 = new Predator(new Coordinates(3,3), 4, 10, 25);
-        Tree e4 = new Tree(new Coordinates(1, 3));
-        Tree e5 = new Tree(new Coordinates(2, 3));
-        Rock e6 = new Rock(new Coordinates(1, 7));
-        Grass e7 = new Grass(new Coordinates(1, 2));
-        Grass e8 = new Grass(new Coordinates(1, 3));
-        Grass e9 = new Grass(new Coordinates(1, 4));
+        Herbivore e2 = new Herbivore(2, 25);
+        Predator e3 = new Predator(4, 10, 25);
+        Tree e4 = new Tree();
+        Tree e5 = new Tree();
+        Rock e6 = new Rock();
+        Grass e7 = new Grass();
+        Grass e8 = new Grass();
+        Grass e9 = new Grass();
 
-
-
-        Simulation.setEntity(e2, e2.getCoordinates());
-        Simulation.setEntity(e3, e3.getCoordinates());
-        Simulation.setEntity(e4, e4.getCoordinates());
-        Simulation.setEntity(e5, e5.getCoordinates());
-        Simulation.setEntity(e6, e6.getCoordinates());
-        Simulation.setEntity(e7, e7.getCoordinates());
-        Simulation.setEntity(e8, e8.getCoordinates());
-        Simulation.setEntity(e9, e9.getCoordinates());
-
+        s.map.add(new Coordinates(5,5), e2);
+        s.map.add(new Coordinates(3,3), e3);
+        s.map.add(new Coordinates(1, 3), e4);
+        s.map.add(new Coordinates(2, 3), e5);
+        s.map.add(new Coordinates(1, 7), e6);
+        s.map.add(new Coordinates(6,6), e7);
+        s.map.add(new Coordinates(1,3), e8);
+        s.map.add(new Coordinates(1,4), e9);
 
         s.startSimulation();
 

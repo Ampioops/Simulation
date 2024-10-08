@@ -1,35 +1,28 @@
 package Entity;
 
-import Simulation.Simulation;
+import Simulation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Predator extends Creature {
     Integer ATK;
 
-    public Predator(Coordinates coordinates, Integer speed, Integer HP, Integer ATK) {
-        super(coordinates, speed, HP);
+    public Predator(Integer speed, Integer HP, Integer ATK) {
+        super(speed, HP);
         this.ATK = ATK;
     }
 
     @Override
-    public void makeMove() {
+    public void makeMove(Coordinates coordinates, MapClass map) {
+        List<Coordinates> path = PathFinder.calculatePath(map, coordinates, getClass());
 
-        List<Coordinates> path = PathFinder.calculatePath(getCoordinates(),getClass());
-
-        if (!path.isEmpty()) {
-            path.removeFirst();
-            Simulation.deleteEntity(this);
+        if(!path.isEmpty()) {
             if (path.size() <= speed) {
-                setCoordinates(path.getLast());
-                Simulation.setEntity(this, path.getLast());
-            } else {
-                setCoordinates(path.get(speed - 1));
-                Simulation.setEntity(this, path.get(speed - 1));
+                map.del(path.getLast());
             }
+            map.del(path.getFirst());
+            map.add(path.getLast(), this);
+            moved();
         }
-
     }
 }

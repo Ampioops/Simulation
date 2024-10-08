@@ -9,14 +9,14 @@ import static Simulation.Emojis.mapEmojis;
 
 public class Renderer {
 
-    public void render(Integer row, Integer column, Map<Coordinates, Entity> entities) {
-        for (int i = 0; i < row; i++) {//строки
+    public void render(MapClass map) {
+        for (int i = 0; i < map.getRow(); i++) {//строки
             StringBuilder line = new StringBuilder();
-            for (int j = 0; j < column; j++) {
-                if (entities.get(new Coordinates(i, j)) != null) {
-                    line.append(String.format(" %3s", mapEmojis.get(getTypeEntity(entities.get(new Coordinates(i, j))))));
+            for (int j = 0; j < map.getColumn(); j++) {
+                if (map.getEntity(new Coordinates(i, j)) != null) {
+                    line.append(String.format(" %3s", mapEmojis.get(getTypeEntity(map.getEntity(new Coordinates(i, j))))));
                 } else {
-                    if (j != column) {
+                    if (j != map.getColumn()) {
                         line.append(String.format("%3s ",mapEmojis.get("EmptyWay")));
                     } else {
                         line.append(String.format("%3s",mapEmojis.get("EmptyWay")));

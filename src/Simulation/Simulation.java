@@ -2,44 +2,33 @@ package Simulation;
 
 import Entity.Coordinates;
 import Entity.Creature;
-import Entity.Entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
-public class Simulation implements Action {
+public class Simulation{
     Integer counter = 0;
-    static Integer height;
-    static Integer width;
     Renderer renderer;
-    static private Map<Coordinates, Entity> entities = new HashMap<>();
-
-    public static void setEntity(Entity entity, Coordinates coordinates) {
-        entity.setCoordinates(coordinates);
-        entities.put(coordinates, entity);
-    }
-
-    public static void deleteEntity(Entity entity) {
-        entities.remove(entity.getCoordinates());
-    }
-
-    public void setSizeOfSimulation(Integer height, Integer width) {
-        Simulation.height = height;
-        Simulation.width = width;
-    }
+    public MapClass map = new MapClass(10,10);
 
     public void startSimulation() {
         renderer = new Renderer();
+        renderer.render(map);
         nextTurn();
-        renderer.render(height, width, entities);
+
+        System.out.println();
+        renderer.render(map);
 
     }
 
-    public void nextTurn() { // гуглить как обойти хэшмапу с изменяющимся сайзом iterator mb
+    public void nextTurn() {
 
-        for (Entity entity : entities.values()) {
-            if (entity instanceof Creature) {
-                ((Creature) entity).makeMove();
+        Set<Coordinates> coordSet = new HashSet<>(map.getCoordinatesSet());
+
+        for(Coordinates coordinates : coordSet) {
+            if (map.getEntity(coordinates) instanceof Creature && ((Creature) map.getEntity(coordinates)).canMove()) {
+                ((Creature) map.getEntity(coordinates)).makeMove(coordinates,map);
             }
         }
     }
@@ -48,25 +37,4 @@ public class Simulation implements Action {
 
     }
 
-    @Override
-    public void initAction() { //действия, совершаемые перед стартом симуляции. Пример - расставить объекты и существ на карте
-
-    }
-
-    @Override
-    public void turnAction() { //действия, совершаемые каждый ход. Примеры - передвижение существ, добавить травы или травоядных, если их осталось слишком мало
-
-    }
-
-    public static Integer getWidth() {
-        return width;
-    }
-
-    public static Integer getHeight() {
-        return height;
-    }
-
-    public static Map<Coordinates, Entity> getEntities() {
-        return entities;
-    }
 }

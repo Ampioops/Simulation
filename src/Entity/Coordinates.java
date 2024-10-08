@@ -3,8 +3,8 @@ package Entity;
 import java.util.Objects;
 
 public class Coordinates {
-     final Integer row;
-     final Integer column;
+      Integer row;
+      Integer column;
     public Coordinates(Integer row, Integer column) {
         this.row = row;
         this.column = column;
@@ -31,5 +31,16 @@ public class Coordinates {
         return Objects.hash(row, column);
     }
 
+    public void setRowAndColumn(Integer row, Integer column) {
+        this.row = row;
+        this.column = column;
+    }
 
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getColumn() {
+        return column;
+    }
 }
