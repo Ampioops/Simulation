@@ -31,16 +31,4 @@ public class Coordinates {
         return Objects.hash(row, column);
     }
 
-    public void setRowAndColumn(Integer row, Integer column) {
-        this.row = row;
-        this.column = column;
-    }
-
-    public Integer getRow() {
-        return row;
-    }
-
-    public Integer getColumn() {
-        return column;
-    }
 }

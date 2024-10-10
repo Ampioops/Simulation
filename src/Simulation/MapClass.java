@@ -1,14 +1,18 @@
 package Simulation;
 
-import Entity.*;
+import Entity.Coordinates;
+import Entity.Entity;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class MapClass {
 
     private Map<Coordinates, Entity> map;
-    final Integer row;
-    final Integer column;
+    Integer row;
+    Integer column;
 
     public MapClass(Integer width, Integer height) {
         this.column = width;
@@ -54,7 +58,11 @@ public class MapClass {
         return map.keySet();
     }
 
-    public boolean ifExists(Coordinates coordinates) {
-        return map.containsKey(coordinates);
+    public void setRow(Integer row) {
+        this.row = row;
+    }
+
+    public void setColumn(Integer column) {
+        this.column = column;
     }
 }

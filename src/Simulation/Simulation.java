@@ -1,24 +1,38 @@
 package Simulation;
 
+import Action.*;
 import Entity.Coordinates;
 import Entity.Creature;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class Simulation{
-    Integer counter = 0;
-    Renderer renderer;
-    public MapClass map = new MapClass(10,10);
+    Integer turnCounter = 0;
+    Renderer renderer= new Renderer();
+    public MapClass map;
+
+
+    public Simulation(Integer row, Integer col) {
+        map = new MapClass(col, row);
+    }
+
+    public void changeSizeOfSimulation(Integer row, Integer col){
+        map.setRow(row);
+        map.setColumn(col);
+    }
 
     public void startSimulation() {
-        renderer = new Renderer();
-        renderer.render(map);
-        nextTurn();
+        // Генерируются рандомно объекты симуляции -- Action - generate entities
 
-        System.out.println();
-        renderer.render(map);
+
+
+        // Расставляются созданные объекты -- Action - place every entity
+
+        // Запускается бесконечный цикл -- while .. nextTurn()
+
+        // Проверка количества элементов симуляции -- Action - checkIfWeNeedMoreEntities
+        // Если не хватает -- Action - addNewEntities
 
     }
 
@@ -31,6 +45,7 @@ public class Simulation{
                 ((Creature) map.getEntity(coordinates)).makeMove(coordinates,map);
             }
         }
+        turnCounter++;
     }
 
     public void pauseSimulation() {
