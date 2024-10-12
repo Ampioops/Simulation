@@ -1,6 +1,6 @@
 package Entity;
 
 
-public class Entity {
+public abstract class Entity {
 
 }

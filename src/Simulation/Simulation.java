@@ -1,8 +1,7 @@
 package Simulation;
 
 import Action.*;
-import Entity.Coordinates;
-import Entity.Creature;
+import Entity.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,9 +22,16 @@ public class Simulation{
     }
 
     public void startSimulation() {
+        renderer.render(map);
+        System.out.println();
         // Генерируются рандомно объекты симуляции -- Action - generate entities
+        EntityGenerator generator = new HerbivoreGenerator();
+        generator.create(map);
+        renderer.render(map);
 
-
+        nextTurn();
+        System.out.println();
+        renderer.render(map);
 
         // Расставляются созданные объекты -- Action - place every entity
 
@@ -45,6 +51,15 @@ public class Simulation{
                 ((Creature) map.getEntity(coordinates)).makeMove(coordinates,map);
             }
         }
+
+        Set<Coordinates> resetter = new HashSet<>(map.getCoordinatesSet());
+
+        for(Coordinates coordinates : resetter) {
+            if (map.getEntity(coordinates) instanceof Creature) {
+                ((Creature) map.getEntity(coordinates)).resetAbilityMakeMove();
+            }
+        }
+
         turnCounter++;
     }
 

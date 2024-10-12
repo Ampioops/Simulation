@@ -32,7 +32,7 @@ public class MapClass {
         add(coordinates, entity);
     }
 
-    public Coordinates del(Coordinates coordinates) {
+    public Coordinates delete(Coordinates coordinates) {
         map.remove(coordinates);
         return coordinates;
     }
@@ -64,5 +64,15 @@ public class MapClass {
 
     public void setColumn(Integer column) {
         this.column = column;
+    }
+
+    public int countOfExactEntity(Class<?> entityClass) {
+        int count = 0;
+        for (Object obj : map.values()) {
+            if (entityClass.isInstance(obj)) {
+                count++;
+            }
+        }
+        return count;
     }
 }

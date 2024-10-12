@@ -15,12 +15,16 @@ public class Herbivore extends Creature {
         List<Coordinates> path = PathFinder.calculatePath(map, coordinates, getClass());
 
         if(!path.isEmpty()) {
-            if (path.size() <= speed) {
-                map.del(path.getLast());
+            if (path.size() <= getSpeed()) {
+                map.delete(path.getLast());
             }
-            map.del(path.getFirst());
+            map.delete(path.getFirst());
             map.add(path.getLast(), this);
             moved();
         }
+    }
+
+    public void attackedByPred (int ATK){
+        setHP(getHP() - ATK);
     }
 }
