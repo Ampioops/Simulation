@@ -17,8 +17,8 @@ public class Main {
 
         Simulation s = new Simulation(10, 10);
 
-        Herbivore e2 = new Herbivore(2, 25);
-        Predator e3 = new Predator(4, 10, 25);
+//        Herbivore e2 = new Herbivore(2, 25);
+//        Predator e3 = new Predator(4, 10, 25);
         Tree e4 = new Tree();
         Tree e5 = new Tree();
         Rock e6 = new Rock();
@@ -26,8 +26,8 @@ public class Main {
         Grass e8 = new Grass();
         Grass e9 = new Grass();
 
-        s.map.add(new Coordinates(5, 5), e2);
-        s.map.add(new Coordinates(3, 3), e3);
+//        s.map.add(new Coordinates(5, 5), e2);
+//        s.map.add(new Coordinates(3, 3), e3);
         s.map.add(new Coordinates(1, 3), e4);
         s.map.add(new Coordinates(2, 3), e5);
         s.map.add(new Coordinates(1, 7), e6);

@@ -23,8 +23,5 @@ public class HerbivoreGenerator extends CreatureGenerator{
 
         }
     }
-
-    public boolean checkIfCoordsEmpty(MapClass map, Coordinates coords) {
-        return !map.contains(coords);
-    }
+    
 }

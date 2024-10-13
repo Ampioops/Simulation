@@ -25,8 +25,10 @@ public class Simulation{
         renderer.render(map);
         System.out.println();
         // Генерируются рандомно объекты симуляции -- Action - generate entities
-        EntityGenerator generator = new HerbivoreGenerator();
-        generator.create(map);
+        EntityGenerator generatorHerbivore = new HerbivoreGenerator();
+        EntityGenerator generatorPredator = new PredatorGenerator();
+        generatorHerbivore.create(map);
+        generatorPredator.create(map);
         renderer.render(map);
 
         nextTurn();

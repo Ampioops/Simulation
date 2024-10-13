@@ -42,7 +42,6 @@ public class MapClass {
     }
 
     public Collection<Entity> getEntities() {
-
         return map.values();
     }
 
