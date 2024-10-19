@@ -25,6 +25,7 @@ public class Renderer {
             }
             System.out.println(line);
         }
+        System.out.println();
     }
 
     public String getTypeEntity(Entity entity) {

@@ -7,9 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Simulation{
+    EntityGenerator generatorHerbivore = new HerbivoreGenerator();
+    EntityGenerator generatorPredator = new PredatorGenerator();
+    EntityGenerator generatorGrass = new GrassGenerator();
+    EntityGenerator generatorTrash = new TrashGenerator();
+    boolean generatedEntities = false;
     Integer turnCounter = 0;
     Renderer renderer= new Renderer();
-    public MapClass map;
+    public static MapClass map = new MapClass(10,10);
 
 
     public Simulation(Integer row, Integer col) {
@@ -21,23 +26,24 @@ public class Simulation{
         map.setColumn(col);
     }
 
-    public void startSimulation() {
-        renderer.render(map);
-        System.out.println();
+    public void startSimulation() throws InterruptedException {
+
         // Генерируются рандомно объекты симуляции -- Action - generate entities
-        EntityGenerator generatorHerbivore = new HerbivoreGenerator();
-        EntityGenerator generatorPredator = new PredatorGenerator();
-        generatorHerbivore.create(map);
-        generatorPredator.create(map);
-        renderer.render(map);
-
-        nextTurn();
-        System.out.println();
-        renderer.render(map);
-
         // Расставляются созданные объекты -- Action - place every entity
+        generateEveryEntity();
+        generatedEntities = true;
+        renderMapRN();
 
-        // Запускается бесконечный цикл -- while .. nextTurn()
+
+        // Запускается бесконечный цикл
+        while (true){
+            nextTurn();
+            renderMapRN();
+            if(map.countOfExactEntity(Herbivore.class)<=3){
+
+            }
+            Thread.sleep(1000);
+        }
 
         // Проверка количества элементов симуляции -- Action - checkIfWeNeedMoreEntities
         // Если не хватает -- Action - addNewEntities
@@ -45,28 +51,40 @@ public class Simulation{
     }
 
     public void nextTurn() {
+        if (generatedEntities) {
+            Set<Coordinates> coordSet = new HashSet<>(map.getCoordinatesSet());
 
-        Set<Coordinates> coordSet = new HashSet<>(map.getCoordinatesSet());
-
-        for(Coordinates coordinates : coordSet) {
-            if (map.getEntity(coordinates) instanceof Creature && ((Creature) map.getEntity(coordinates)).canMove()) {
-                ((Creature) map.getEntity(coordinates)).makeMove(coordinates,map);
+            for (Coordinates coordinates : coordSet) {
+                if (map.getEntity(coordinates) instanceof Creature && ((Creature) map.getEntity(coordinates)).canMove()) {
+                    ((Creature) map.getEntity(coordinates)).makeMove(coordinates, map);
+                }
             }
-        }
 
-        Set<Coordinates> resetter = new HashSet<>(map.getCoordinatesSet());
+            Set<Coordinates> resetter = new HashSet<>(map.getCoordinatesSet());
 
-        for(Coordinates coordinates : resetter) {
-            if (map.getEntity(coordinates) instanceof Creature) {
-                ((Creature) map.getEntity(coordinates)).resetAbilityMakeMove();
+            for (Coordinates coordinates : resetter) {
+                if (map.getEntity(coordinates) instanceof Creature) {
+                    ((Creature) map.getEntity(coordinates)).resetAbilityMakeMove();
+                }
             }
-        }
 
-        turnCounter++;
+            turnCounter++;
+        }
     }
 
     public void pauseSimulation() {
 
+    }
+
+    private void generateEveryEntity(){
+        generatorGrass.create(map);
+        generatorHerbivore.create(map);
+        generatorPredator.create(map);
+        generatorTrash.create(map);
+    }
+
+    private void renderMapRN(){
+        renderer.render(map);
     }
 
 }

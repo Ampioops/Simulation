@@ -1,17 +1,17 @@
 package Action;
 
 import Entity.Coordinates;
-import Entity.Creature;
 import Entity.Herbivore;
+import Entity.Predator;
 import Simulation.MapClass;
 
 public class HerbivoreGenerator extends CreatureGenerator{
 
     @Override
     public void create(MapClass map) {
-        int spawnRate = (int) Math.ceil((double) ((map.getColumn() * map.getRow()) * 5) / 100);
+        int spawnRate = (int) Math.ceil((double) ((map.getColumn() * map.getRow()) * 3) / 100);
 
-        for (int rate = map.countOfExactEntity(Herbivore.class); rate < spawnRate;) {
+        for (int rate = map.countOfExactEntity(Herbivore.class); rate < spawnRate;rate++) {
             Coordinates coordinates = generateRandCoordinates(map.getRow(), map.getColumn());
             int speed = (int)(Math.random()*4) + 1;
             int HP = (int)(Math.random()*21) + 10;
@@ -20,8 +20,6 @@ public class HerbivoreGenerator extends CreatureGenerator{
                 map.add(coordinates, new Herbivore(speed, HP));
                 rate++;
             }
-
         }
     }
-    
 }
