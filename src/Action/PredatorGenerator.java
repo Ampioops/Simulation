@@ -24,4 +24,18 @@ public class PredatorGenerator extends CreatureGenerator{
         }
     }
 
+    @Override
+    public void createOneInstance(MapClass map) {
+        Coordinates coordinates = generateRandCoordinates(map.getRow(), map.getColumn());
+        int speed = (int)(Math.random()*5) + 1;
+        int HP = (int)(Math.random()*11) + 10;
+        int ATK = (int)(Math.random()*6) + 10;
+        boolean checker = checkIfCoordsEmpty(map, coordinates);
+        while(!checker) {
+            coordinates = generateRandCoordinates(map.getRow(), map.getColumn());
+            checker = checkIfCoordsEmpty(map, coordinates);
+        }
+        map.add(coordinates, new Predator(speed, HP, ATK));
+    }
+
 }

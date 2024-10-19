@@ -1,5 +1,7 @@
 package Action;
 
-public abstract class CreatureGenerator extends EntityGenerator {
+import Simulation.MapClass;
 
+public abstract class CreatureGenerator extends EntityGenerator {
+    abstract void createOneInstance(MapClass map);
 }

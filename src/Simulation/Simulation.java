@@ -11,7 +11,9 @@ public class Simulation{
     EntityGenerator generatorPredator = new PredatorGenerator();
     EntityGenerator generatorGrass = new GrassGenerator();
     EntityGenerator generatorTrash = new TrashGenerator();
-    boolean generatedEntities = false;
+    boolean entitiesGenerated = false;
+    boolean isRunning = false;
+    boolean isPaused = false;
     Integer turnCounter = 0;
     Renderer renderer= new Renderer();
     public static MapClass map = new MapClass(10,10);
@@ -30,28 +32,35 @@ public class Simulation{
 
         // Генерируются рандомно объекты симуляции -- Action - generate entities
         // Расставляются созданные объекты -- Action - place every entity
+        isRunning = true;
         generateEveryEntity();
-        generatedEntities = true;
-        renderMapRN();
+        entitiesGenerated = true;
+        renderMap();
+
+        while (isRunning) {
+
+            synchronized (Thread.currentThread()){
+                while (isPaused){
+                    Thread.currentThread().wait();
+                }
+            }
 
 
-        // Запускается бесконечный цикл
-        while (true){
             nextTurn();
-            renderMapRN();
+            renderMap();
             if(map.countOfExactEntity(Herbivore.class)<=3){
 
             }
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         }
-
+        System.out.println("Симуляция завершена.");
         // Проверка количества элементов симуляции -- Action - checkIfWeNeedMoreEntities
         // Если не хватает -- Action - addNewEntities
 
     }
 
     public void nextTurn() {
-        if (generatedEntities) {
+        if (entitiesGenerated) {
             Set<Coordinates> coordSet = new HashSet<>(map.getCoordinatesSet());
 
             for (Coordinates coordinates : coordSet) {
@@ -73,7 +82,15 @@ public class Simulation{
     }
 
     public void pauseSimulation() {
+        isPaused = true;
+    }
 
+    public void resumeSimulation() {
+        isPaused = false;
+    }
+
+    public void stopSimulation() {
+        isRunning = false;
     }
 
     private void generateEveryEntity(){
@@ -83,7 +100,7 @@ public class Simulation{
         generatorTrash.create(map);
     }
 
-    private void renderMapRN(){
+    private void renderMap(){
         renderer.render(map);
     }
 

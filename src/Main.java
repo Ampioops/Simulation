@@ -35,19 +35,38 @@ public class Main {
 
                     break;
                 case 2:
-//                    System.out.println("Запускаю бесконечную симуляцию игрового мира:");
-//                    System.out.println("Введите 'pause' чтобы остановить симуляцию или 'resume' чтобы продолжить:");
-//
-//                    Thread simulationThread = new Thread(() -> {
-//                        try {
-//                            s.startSimulation();
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    });
-//                    simulationThread.start();
+                    System.out.println("Запускаю бесконечную симуляцию игрового мира:");
 
+                    Thread simulationThread = new Thread(() -> {
+                        try {
+                            s.startSimulation();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    simulationThread.start();
+
+                    while (true) {
+                        System.out.println("Введите 'p' чтобы остановить симуляцию, 'r' чтобы продолжить, и 's', чтобы завершить:");
+                        String command = sc.nextLine();
+
+                        if (command.equalsIgnoreCase("p")) {
+                            s.pauseSimulation(); // Поставить симуляцию на паузу
+                        } else if (command.equalsIgnoreCase("r")) {
+                            s.resumeSimulation(); // Снять симуляцию с паузы
+                            synchronized (simulationThread) {
+                                simulationThread.notify(); // Пробудить поток симуляции
+                            }
+                        }else if (command.equalsIgnoreCase("s")) {
+                            s.stopSimulation();
+                            synchronized (simulationThread) {
+                                simulationThread.notify();
+                            }
+                            break;
+                        }
+                    }
                     break;
+
                 case 3:
                     System.out.println("Введите высоту Мира симуляции:");
                     Integer rows = sc.nextInt();
