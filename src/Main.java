@@ -15,14 +15,14 @@ public class Main {
 
         int idMenu = -1;
 
-        Simulation s = new Simulation(10, 10);
+        Simulation s = new Simulation();
 
         while (idMenu != 6) {
             System.out.println("============ Меню симуляции ============");
             System.out.println("1 - Симулировать игровой Мир - сделать один ход");
             System.out.println("2 - Запустить бесконечную симуляцию игрового Мира ");
-            System.out.println("3 - Изменить размер Мира симуляции (default = 10,10)");
-            System.out.println("4 - Начать игру с начала");
+            System.out.println("3 - Изменить размер Мира симуляции (default = 15,15)");
+            System.out.println("4 - Начать игру сначала");
             System.out.println("5 - Конец  Игры");
             System.out.println("=======================================");
 
@@ -79,6 +79,8 @@ public class Main {
 
                     break;
                 case 4:
+                    s.refreshSimulation();
+                    System.out.println("Мир обновлен");
                     break;
                 case 5:
                     idMenu = 6;

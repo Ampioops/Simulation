@@ -1,5 +1,6 @@
 package Entity;
 
+import Action.HerbivoreGenerator;
 import Simulation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class Predator extends Creature {
             targetCoordinates = path.getLast();
 
         } catch (NoSuchElementException e) {
-            System.out.println("Нет доступа к жертве!");
+            herbivoreGenerator.create(map);
             return;
         }
         Herbivore target = (Herbivore) map.getEntity(targetCoordinates);

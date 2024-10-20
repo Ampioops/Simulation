@@ -11,7 +11,7 @@ public class HerbivoreGenerator extends CreatureGenerator{
     public void create(MapClass map) {
         int spawnRate = (int) Math.ceil((double) ((map.getColumn() * map.getRow()) * 3) / 100);
 
-        for (int rate = map.countOfExactEntity(Herbivore.class); rate < spawnRate;rate++) {
+        for (int rate = map.countOfExactEntity(Herbivore.class); rate < spawnRate;) {
             Coordinates coordinates = generateRandCoordinates(map.getRow(), map.getColumn());
             int speed = (int)(Math.random()*4) + 1;
             int HP = (int)(Math.random()*21) + 10;

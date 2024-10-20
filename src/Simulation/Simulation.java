@@ -7,9 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Simulation{
-    EntityGenerator generatorHerbivore = new HerbivoreGenerator();
-    EntityGenerator generatorPredator = new PredatorGenerator();
-    EntityGenerator generatorGrass = new GrassGenerator();
+
+    CreatureGenerator generatorHerbivore = new HerbivoreGenerator();
+    CreatureGenerator generatorPredator = new PredatorGenerator();
+    GrassGenerator generatorGrass = new GrassGenerator();
     EntityGenerator generatorTrash = new TrashGenerator();
     boolean entitiesGenerated = false;
     boolean isRunning = false;
@@ -18,10 +19,6 @@ public class Simulation{
     Renderer renderer= new Renderer();
     public static MapClass map = new MapClass(10,10);
 
-
-    public Simulation(Integer row, Integer col) {
-        map = new MapClass(col, row);
-    }
 
     public void changeSizeOfSimulation(Integer row, Integer col){
         map.setRow(row);
@@ -38,24 +35,18 @@ public class Simulation{
         renderMap();
 
         while (isRunning) {
-
             synchronized (Thread.currentThread()){
                 while (isPaused){
                     Thread.currentThread().wait();
                 }
             }
 
-
             nextTurn();
             renderMap();
-            if(map.countOfExactEntity(Herbivore.class)<=3){
 
-            }
             Thread.sleep(1500);
         }
         System.out.println("Симуляция завершена.");
-        // Проверка количества элементов симуляции -- Action - checkIfWeNeedMoreEntities
-        // Если не хватает -- Action - addNewEntities
 
     }
 
@@ -102,6 +93,14 @@ public class Simulation{
 
     private void renderMap(){
         renderer.render(map);
+    }
+
+    public void refreshSimulation(){
+        map = new MapClass(map.getRow(),map.getColumn());
+        entitiesGenerated = false;
+        isRunning = false;
+        isPaused = false;
+        turnCounter = 0;
     }
 
 }

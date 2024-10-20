@@ -1,8 +1,10 @@
 package Entity;
 
+import Action.HerbivoreGenerator;
 import Simulation.MapClass;
 
 public abstract class Creature extends Entity {
+    HerbivoreGenerator herbivoreGenerator = new HerbivoreGenerator();
     private Integer speed;
     private Integer HP;
     private boolean canCreatureMakeMove;
