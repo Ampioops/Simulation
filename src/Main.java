@@ -32,6 +32,7 @@ public class Main {
                 case 1:
                     System.out.println("Симуляция одного хода:");
                     s.nextTurn();
+                    s.renderMap();
 
                     break;
                 case 2:
@@ -45,9 +46,9 @@ public class Main {
                         }
                     });
                     simulationThread.start();
+                    System.out.println("Введите 'p' чтобы остановить симуляцию, 'r' чтобы продолжить, и 's', чтобы завершить:");
 
                     while (true) {
-                        System.out.println("Введите 'p' чтобы остановить симуляцию, 'r' чтобы продолжить, и 's', чтобы завершить:");
                         String command = sc.nextLine();
 
                         if (command.equalsIgnoreCase("p")) {

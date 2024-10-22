@@ -91,7 +91,7 @@ public class Simulation{
         generatorTrash.create(map);
     }
 
-    private void renderMap(){
+    public void renderMap(){
         renderer.render(map);
     }
 
